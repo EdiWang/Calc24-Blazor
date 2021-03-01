@@ -8,30 +8,36 @@
         <small class="text-muted">Blazor WASM / .NET @Environment.Version</small>
     </div>
     <hr />
+    
+    <EditForm Model="Poker24Model" OnValidSubmit="async () => await GetResults()">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <div class="row mb-2">
-        <div class="col">
-            <input type="number" class="form-control" placeholder="数值1" id="input-num1" spellcheck="false" @bind="Num1" />
+        <div class="row mb-2">
+            <div class="col">
+                <input type="number" class="form-control" placeholder="数值1" id="input-num1" spellcheck="false" @bind="Poker24Model.Num1" min="1" max="13"/>
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" placeholder="数值2" id="input-num2" spellcheck="false" @bind="Poker24Model.Num2" min="1" max="13"/>
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" placeholder="数值3" id="input-num3" spellcheck="false" @bind="Poker24Model.Num3" min="1" max="13"/>
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" placeholder="数值4" id="input-num4" spellcheck="false" @bind="Poker24Model.Num4" min="1" max="13"/>
+            </div>
+            <div class="col">
+                <button class="btn btn-success" type="submit">
+                    @if (Loading)
+                    {
+                        <span id="loadingIndicator" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    }
+                    求解
+                </button>
+            </div>
         </div>
-        <div class="col">
-            <input type="number" class="form-control" placeholder="数值2" id="input-num2" spellcheck="false" @bind="Num2" />
-        </div>
-        <div class="col">
-            <input type="number" class="form-control" placeholder="数值3" id="input-num3" spellcheck="false" @bind="Num3" />
-        </div>
-        <div class="col">
-            <input type="number" class="form-control" placeholder="数值4" id="input-num4" spellcheck="false" @bind="Num4" />
-        </div>
-        <div class="col">
-            <button class="btn btn-success" @onclick="async () => await GetResults()">
-                @if (Loading)
-                {
-                    <span id="loadingIndicator" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                }
-                求解
-            </button>
-        </div>
-    </div>
+    </EditForm>
+   
     
     <hr />
     <div class="result-box mt-2">

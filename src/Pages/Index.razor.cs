@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Calc24Blazor.Models;
 
 namespace Calc24Blazor.Pages
 {
     public partial class Index
     {
-        public int Num1 { get; set; } = 1;
-        public int Num2 { get; set; } = 2;
-        public int Num3 { get; set; } = 3;
-        public int Num4 { get; set; } = 4;
+        public Poker24 Poker24Model { get; set; } = new()
+        {
+            Num1 = 9, Num2 = 9, Num3 = 6, Num4 = 7
+        };
+
         public bool Loading { get; set; }
 
         public List<string> ResultList { get; set; } = new();
@@ -27,7 +29,7 @@ namespace Calc24Blazor.Pages
 
         private async Task DoCalc()
         {
-            var numbers = new List<double> { Num1, Num2, Num3, Num4 };
+            var numbers = new List<double> { Poker24Model.Num1, Poker24Model.Num2, Poker24Model.Num3, Poker24Model.Num4 };
 
             var operators = new List<Func<Expression, Expression, BinaryExpression>>
             {
@@ -138,17 +140,6 @@ namespace Calc24Blazor.Pages
                    from left in AllBinaryTrees(i)
                    from right in AllBinaryTrees(size - 1 - i)
                    select new Node(left, right);
-        }
-    }
-
-    internal class Node
-    {
-        public Node Left { get; }
-        public Node Right { get; }
-        public Node(Node left, Node right)
-        {
-            Left = left;
-            Right = right;
         }
     }
 }
