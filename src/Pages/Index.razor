@@ -15,16 +15,16 @@
 
         <div class="row mb-2">
             <div class="col">
-                <input type="number" class="form-control" placeholder="数值1" id="input-num1" spellcheck="false" @bind="Poker24Model.Num1" min="1" max="13"/>
+                <InputNumber @bind-Value="Poker24Model.Num1" class="form-control" placeholder="数值1"  min="1" max="13"/>
             </div>
             <div class="col">
-                <input type="number" class="form-control" placeholder="数值2" id="input-num2" spellcheck="false" @bind="Poker24Model.Num2" min="1" max="13"/>
+                <InputNumber @bind-Value="Poker24Model.Num2" class="form-control" placeholder="数值2" min="1" max="13" />
             </div>
             <div class="col">
-                <input type="number" class="form-control" placeholder="数值3" id="input-num3" spellcheck="false" @bind="Poker24Model.Num3" min="1" max="13"/>
+                <InputNumber @bind-Value="Poker24Model.Num3" class="form-control" placeholder="数值3" min="1" max="13" />
             </div>
             <div class="col">
-                <input type="number" class="form-control" placeholder="数值4" id="input-num4" spellcheck="false" @bind="Poker24Model.Num4" min="1" max="13"/>
+                <InputNumber @bind-Value="Poker24Model.Num4" class="form-control" placeholder="数值4" min="1" max="13" />
             </div>
             <div class="col">
                 <button class="btn btn-success" type="submit">
