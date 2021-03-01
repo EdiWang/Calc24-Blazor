@@ -23,12 +23,17 @@
             <input type="number" class="form-control" placeholder="数值4" id="input-num4" spellcheck="false" @bind="Num4" />
         </div>
         <div class="col">
-            <button class="btn btn-success">求解</button>
+            <button class="btn btn-success" @onclick="GetResults">求解</button>
         </div>
     </div>
-    
-    <div class="result-box mt-4">
 
+    <div class="result-box mt-4">
+        <ul>
+            @foreach (var item in ResultList)
+            {
+                <li>@item</li>
+            }
+        </ul>
     </div>
 </div>
 
