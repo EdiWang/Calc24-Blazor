@@ -8,19 +8,24 @@ namespace Calc24Blazor.Pages
 {
     public partial class Index
     {
-        public int Num1 { get; set; }
-        public int Num2 { get; set; }
-        public int Num3 { get; set; }
-        public int Num4 { get; set; }
+        public int Num1 { get; set; } = 1;
+        public int Num2 { get; set; } = 2;
+        public int Num3 { get; set; } = 3;
+        public int Num4 { get; set; } = 4;
+        public bool Loading { get; set; }
 
         public List<string> ResultList { get; set; } = new();
 
-        private void GetResults()
+        private async Task GetResults()
         {
             ResultList.Clear();
 
-            var list = DoCalc();
+            Loading = true;
+            
+            var list = await Task.Run(DoCalc);
             ResultList = list;
+
+            Loading = false;
         }
 
         private List<string> DoCalc()

@@ -9,7 +9,7 @@
     </div>
     <hr />
 
-    <div class="row">
+    <div class="row mb-2">
         <div class="col">
             <input type="number" class="form-control" placeholder="数值1" id="input-num1" spellcheck="false" @bind="Num1" />
         </div>
@@ -23,12 +23,14 @@
             <input type="number" class="form-control" placeholder="数值4" id="input-num4" spellcheck="false" @bind="Num4" />
         </div>
         <div class="col">
-            <button class="btn btn-success" @onclick="GetResults">求解</button>
+            <button class="btn btn-success" @onclick="async ()=> await GetResults()">求解</button>
+            @if (Loading) { <span>...</span> }
         </div>
     </div>
-
-    <div class="result-box mt-4">
-        <ul>
+    
+    <hr />
+    <div class="result-box mt-2">
+        <ul class="list-unstyled">
             @foreach (var item in ResultList)
             {
                 <li>@item</li>
