@@ -1,6 +1,6 @@
 ﻿@page "/"
 
-<div class="main box mt-4">
+<div class="box mt-4">
     <h1 class="text-center">
         24点解法计算器
     </h1>
@@ -8,14 +8,14 @@
         <small class="text-muted">Blazor WASM / .NET @Environment.Version</small>
     </div>
     <hr />
-    
+
     <EditForm Model="Poker24Model" OnValidSubmit="async () => await GetResults()">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
         <div class="row mb-2">
             <div class="col">
-                <InputNumber @bind-Value="Poker24Model.Num1" class="form-control" placeholder="数值1"  min="1" max="13"/>
+                <InputNumber @bind-Value="Poker24Model.Num1" class="form-control" placeholder="数值1" min="1" max="13" />
             </div>
             <div class="col">
                 <InputNumber @bind-Value="Poker24Model.Num2" class="form-control" placeholder="数值2" min="1" max="13" />
@@ -37,17 +37,24 @@
             </div>
         </div>
     </EditForm>
-   
-    
+
+
     <hr />
-    <div class="result-box mt-2">
-        <ul class="list-unstyled">
-            @foreach (var item in ResultList)
-            {
-                <li>@item</li>
-            }
-        </ul>
+    <div class="result-box mt-2 d-flex flex-wrap">
+        @foreach (var item in ResultList)
+        {
+            <div class="answer bg-light rounded p-2 m-2">
+                @item
+            </div>
+        }
     </div>
+    
+    @if (ShowNoResult)
+    {
+        <div class="alert alert-info mt-2">
+            无解
+        </div>
+    }
 </div>
 
 <div class="mt-3 text-center">

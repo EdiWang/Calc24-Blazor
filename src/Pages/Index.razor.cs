@@ -16,14 +16,23 @@ namespace Calc24Blazor.Pages
 
         public bool Loading { get; set; }
 
+        public bool ShowNoResult { get; set; }
+
         public List<string> ResultList { get; set; } = new();
 
         private async Task GetResults()
         {
             ResultList.Clear();
+            ShowNoResult = false;
 
             Loading = true;
             await DoCalc();
+
+            if (!ResultList.Any())
+            {
+                ShowNoResult = true;
+            }
+
             Loading = false;
         }
 
@@ -45,7 +54,6 @@ namespace Calc24Blazor.Pages
                 {
                     foreach (var permuteOfNumbers in FullPermute(numbers))
                     {
-
                         var expression = Build(node, permuteOfNumbers, operatorCombination.ToList());
                         var compiled = Expression.Lambda<Func<double>>(expression).Compile();
                         try
