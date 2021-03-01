@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calc24Blazor", "Calc24Blazor.csproj", "{722012E6-988A-4513-A4BA-A8E526730059}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{722012E6-988A-4513-A4BA-A8E526730059}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{722012E6-988A-4513-A4BA-A8E526730059}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{722012E6-988A-4513-A4BA-A8E526730059}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{722012E6-988A-4513-A4BA-A8E526730059}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB50F1EB-8D2B-4E22-9605-8C2E1F852177}
+	EndGlobalSection
+EndGlobal
