@@ -21,17 +21,12 @@ namespace Calc24Blazor.Pages
             ResultList.Clear();
 
             Loading = true;
-            
-            var list = await Task.Run(DoCalc);
-            ResultList = list;
-
+            await DoCalc();
             Loading = false;
         }
 
-        private List<string> DoCalc()
+        private async Task DoCalc()
         {
-            var tempList = new List<string>();
-
             var numbers = new List<double> { Num1, Num2, Num3, Num4 };
 
             var operators = new List<Func<Expression, Expression, BinaryExpression>>
@@ -48,6 +43,7 @@ namespace Calc24Blazor.Pages
                 {
                     foreach (var permuteOfNumbers in FullPermute(numbers))
                     {
+
                         var expression = Build(node, permuteOfNumbers, operatorCombination.ToList());
                         var compiled = Expression.Lambda<Func<double>>(expression).Compile();
                         try
@@ -55,7 +51,10 @@ namespace Calc24Blazor.Pages
                             var value = compiled();
                             if (Math.Abs(value - 24) < 0.01)
                             {
-                                tempList.Add($"{expression} = {value}");
+                                // Workaround Blazor WASM single thread problem
+                                // https://stackoverflow.com/questions/61864285/blazor-ui-freeze-even-when-task-is-used
+                                await Task.Delay(1);
+                                ResultList.Add($"{expression} = {value}");
                             }
                         }
                         catch (DivideByZeroException)
@@ -64,8 +63,6 @@ namespace Calc24Blazor.Pages
                     }
                 }
             }
-
-            return tempList;
         }
 
         private static IEnumerable<IEnumerable<Func<Expression, Expression, BinaryExpression>>> OperatorPermute(IReadOnlyCollection<Func<Expression, Expression, BinaryExpression>> operators)
