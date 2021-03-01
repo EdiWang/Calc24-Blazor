@@ -23,8 +23,13 @@
             <input type="number" class="form-control" placeholder="数值4" id="input-num4" spellcheck="false" @bind="Num4" />
         </div>
         <div class="col">
-            <button class="btn btn-success" @onclick="async ()=> await GetResults()">求解</button>
-            @if (Loading) { <span>...</span> }
+            <button class="btn btn-success" @onclick="async () => await GetResults()">
+                @if (Loading)
+                {
+                    <span id="loadingIndicator" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                }
+                求解
+            </button>
         </div>
     </div>
     
