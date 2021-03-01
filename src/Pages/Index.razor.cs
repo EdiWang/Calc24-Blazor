@@ -27,7 +27,7 @@ namespace Calc24Blazor.Pages
         {
             var tempList = new List<string>();
 
-            List<double> numbers = new List<double> { Num1, Num2, Num3, Num4 };
+            var numbers = new List<double> { Num1, Num2, Num3, Num4 };
 
             var operators = new List<Func<Expression, Expression, BinaryExpression>>
             {
@@ -39,12 +39,12 @@ namespace Calc24Blazor.Pages
 
             foreach (var operatorCombination in OperatorPermute(operators))
             {
-                foreach (Node node in AllBinaryTrees(3))
+                foreach (var node in AllBinaryTrees(3))
                 {
-                    foreach (List<double> permuteOfNumbers in FullPermute(numbers))
+                    foreach (var permuteOfNumbers in FullPermute(numbers))
                     {
-                        Expression expression = Build(node, permuteOfNumbers, operatorCombination.ToList());
-                        Func<double> compiled = Expression.Lambda<Func<double>>(expression).Compile();
+                        var expression = Build(node, permuteOfNumbers, operatorCombination.ToList());
+                        var compiled = Expression.Lambda<Func<double>>(expression).Compile();
                         try
                         {
                             var value = compiled();
@@ -63,7 +63,7 @@ namespace Calc24Blazor.Pages
             return tempList;
         }
 
-        private static IEnumerable<IEnumerable<Func<Expression, Expression, BinaryExpression>>> OperatorPermute(List<Func<Expression, Expression, BinaryExpression>> operators)
+        private static IEnumerable<IEnumerable<Func<Expression, Expression, BinaryExpression>>> OperatorPermute(IReadOnlyCollection<Func<Expression, Expression, BinaryExpression>> operators)
         {
             return from operator1 in operators
                    from operator2 in operators
@@ -77,13 +77,13 @@ namespace Calc24Blazor.Pages
                 return EnumerableOfOneElement(elements);
 
             IEnumerable<List<T>> result = null;
-            foreach (T first in elements)
+            foreach (var first in elements)
             {
-                List<T> remaining = elements.ToArray().ToList();
+                var remaining = elements.ToArray().ToList();
                 remaining.Remove(first);
-                IEnumerable<List<T>> fullPermuteOfRemaining = FullPermute(remaining);
+                var fullPermuteOfRemaining = FullPermute(remaining);
 
-                foreach (List<T> permute in fullPermuteOfRemaining)
+                foreach (var permute in fullPermuteOfRemaining)
                 {
                     var arr = new List<T> { first };
                     arr.AddRange(permute);
@@ -100,13 +100,12 @@ namespace Calc24Blazor.Pages
             yield return element;
         }
 
-        private static Expression Build(Node node, List<double> numbers, List<Func<Expression, Expression, BinaryExpression>> operators)
+        private static Expression Build(Node node, IReadOnlyList<double> numbers, IReadOnlyList<Func<Expression, Expression, BinaryExpression>> operators)
         {
             var iNum = 0;
             var iOprt = 0;
 
-            Func<Node, Expression> f = null;
-            f = n =>
+            Expression Func(Node n)
             {
                 Expression exp;
                 if (n == null)
@@ -115,13 +114,15 @@ namespace Calc24Blazor.Pages
                 }
                 else
                 {
-                    var left = f(n.Left);
-                    var right = f(n.Right);
+                    var left = Func(n.Left);
+                    var right = Func(n.Right);
                     exp = operators[iOprt++](left, right);
                 }
+
                 return exp;
-            };
-            return f(node);
+            }
+
+            return Func(node);
         }
 
         private static IEnumerable<Node> AllBinaryTrees(int size)
@@ -140,12 +141,12 @@ namespace Calc24Blazor.Pages
 
     internal class Node
     {
-        public Node Left { get; private set; }
-        public Node Right { get; private set; }
+        public Node Left { get; }
+        public Node Right { get; }
         public Node(Node left, Node right)
         {
-            this.Left = left;
-            this.Right = right;
+            Left = left;
+            Right = right;
         }
     }
 }
